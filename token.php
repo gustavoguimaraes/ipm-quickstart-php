@@ -8,9 +8,12 @@ use Twilio\Jwt\Grants\IpMessagingGrant;
 
 // An identifier for your app - can be anything you'd like
 $appName = 'TwilioChatDemo';
-
 // choose a random username for the connecting user
 $identity = randomUsername();
+// A device ID is passed as a query string parameter to this script
+$deviceId = $_GET['device'];
+// The endpoint ID is a combination of the above
+$endpointId = $appName . ':' . $identity . ':' . $deviceId;
 
 // Create access token, which we will serialize and send to the client
 $token = new AccessToken(
@@ -24,6 +27,7 @@ $token = new AccessToken(
 // Grant access to IP Messaging
 $grant = new IpMessagingGrant();
 $grant->setServiceSid($TWILIO_IPM_SERVICE_SID);
+$grant->setEndpointId($endpointId);
 $token->addGrant($grant);
 
 // return serialized token and the user's randomly generated ID
