@@ -17,16 +17,17 @@ $endpointId = $appName . ':' . $identity . ':' . $deviceId;
 
 // Create access token, which we will serialize and send to the client
 $token = new AccessToken(
-    $TWILIO_ACCOUNT_SID, 
-    $TWILIO_API_KEY, 
-    $TWILIO_API_SECRET, 
-    3600, 
+    $TWILIO_ACCOUNT_SID,
+    $TWILIO_API_KEY,
+    $TWILIO_API_SECRET,
+    3600,
     $identity
 );
 
 // Grant access to IP Messaging
 $grant = new IpMessagingGrant();
 $grant->setServiceSid($TWILIO_IPM_SERVICE_SID);
+$grant->setPushCredentialSid('CRe9c5eff29e744709d7df875f8a797bf0');
 $grant->setEndpointId($endpointId);
 $token->addGrant($grant);
 
